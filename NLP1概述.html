@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="tool" content="leanote-desktop-app">
+<title>NLP1概述</title>
+<style>
+
+*{font-family:"lucida grande","lucida sans unicode",lucida,helvetica,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;}
+
+body {
+  margin: 0;
+}
+
+/*公用文字样式*/
+h1{font-size:30px}h2{font-size:24px}h3{font-size:18px}h4{font-size:14px}
+.note-container{
+    width:850px; 
+    margin:auto;
+    padding: 10px 20px;
+    box-shadow: 1px 1px 10px #eee;
+}
+#title {
+  margin: 0;
+}
+table {
+    margin-bottom: 16px;
+    border-collapse: collapse;
+}
+table th, table td {
+    padding: 6px 13px;
+    border: 1px solid #ddd;
+}
+table th {
+    font-weight: bold;
+}
+
+table tr {
+    background-color: none;
+    border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+    background-color: rgb(247, 247, 249);
+}
+.mce-item-table, .mce-item-table td, .mce-item-table th, .mce-item-table caption {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  padding: 6px 13px;
+}
+blockquote {
+  border-left-width:10px;
+  background-color:rgba(128,128,128,0.05);
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+  padding:15px 20px;
+  border-left:5px solid rgba(128,128,128,0.075);
+}
+blockquote p {
+  margin-bottom:1.1em;
+  font-size:1em;
+  line-height:1.45
+}
+blockquote ul:last-child,blockquote ol:last-child {
+  margin-bottom:0
+}
+pre {
+  padding: 18px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 3px;
+  display: block;
+}
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  white-space: nowrap;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+.footnote {
+  vertical-align: top;
+  position: relative;
+  top: -0.5em;
+  font-size: .8em;
+}
+
+hr {
+  margin:2em 0
+}
+img {
+  max-width:100%
+}
+pre {
+  word-break:break-word
+}
+p,pre,pre.prettyprint,blockquote {
+  margin:0 0 1.1em
+}
+hr {
+  margin:2em 0
+}
+img {
+  max-width:100%
+}
+.sequence-diagram,.flow-chart {
+  text-align:center;
+  margin-bottom:1.1em
+}
+.sequence-diagram text,.flow-chart text {
+  font-size:15px !important;
+  font-family:"Source Sans Pro",sans-serif !important
+}
+.sequence-diagram [fill="#ffffff"],.flow-chart [fill="#ffffff"] {
+  fill:#f6f6f6
+}
+.sequence-diagram [stroke="#000000"],.flow-chart [stroke="#000000"] {
+  stroke:#3f3f3f
+}
+.sequence-diagram text[stroke="#000000"],.flow-chart text[stroke="#000000"] {
+  stroke:none
+}
+.sequence-diagram [fill="#000"],.flow-chart [fill="#000"],.sequence-diagram [fill="#000000"],.flow-chart [fill="#000000"],.sequence-diagram [fill="black"],.flow-chart [fill="black"] {
+  fill:#3f3f3f
+}
+ul,ol {
+  margin-bottom:1.1em
+}
+ul ul,ol ul,ul ol,ol ol {
+  margin-bottom:1.1em
+}
+kbd {
+  padding:.1em .6em;
+  border:1px solid rgba(63,63,63,0.25);
+  -webkit-box-shadow:0 1px 0 rgba(63,63,63,0.25);
+  box-shadow:0 1px 0 rgba(63,63,63,0.25);
+  font-size:.7em;
+  font-family:sans-serif;
+  background-color:#fff;
+  color:#333;
+  border-radius:3px;
+  display:inline-block;
+  margin:0 .1em;
+  white-space:nowrap
+}
+.toc ul {
+  list-style-type:none;
+  margin-bottom:15px
+}
+</style>
+<!-- 该css供自定义样式 -->
+<link href="../leanote-html.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="note-container">
+		<h1 class="title" id="leanote-title">NLP1概述</h1>
+		<div class="content-html" id="leanote-content"><h1>知识框图</h1><p><img id="__LEANOTE_D_IMG_1467855011577" style="display: block; margin-left: auto; margin-right: auto;" src="NLP1概述_files/577db0a32370500c9a000007.png" alt="" width="343" height="205" data-mce-src="NLP1概述_files/577db0a32370500c9a000007.png" data-mce-style="display: block; margin-left: auto; margin-right: auto;"></p><h1>第一章 概述</h1><div class="page" title="Page 6"><div class="layoutArea"><h2>问题的提出:</h2><ul><li>网络信息检索市场前景广阔</li><li>随着社会全球化时代的到来，机器翻译市场潜力巨大</li><li>如何让计算机能够自动或半自动地理解自然 语言文本,懂得人的意图和心声?</li><li>如何让计算机实现海量语言文本的自动处 理、挖掘和有效利用,满足不同用户的各种 需求,实现个性化信息服务?<br></li></ul><h2>基本概念:NLU、CL、NLP：<br></h2><ul><li>NLU：(Natural Language Understanding, NLU) 是探索人类自身语言能力和语言思维活动的本质，研究人类语言认知过程的自然语言处理方法和实现技术的一门学科。是计算机科学领域与人工智能领域中的一个重要方向。它研究能实现人与计算机之间用自然语言进行有效通信的各种理论和方法。</li><li>CL：(Computational Linguistics) 计算语言学：通过建立形式化的计算模型来分析、理解和生成 自然语言的学科,是人工智能和语言学的分支学科。 计算语言学是典型的交 学科,其研究常常涉 计算 机科学、语言学、数学等多个学科的知识。与内容接 近的学科自然语言处理相比较,计算语言学更加侧重 基础理论和方法的研究。</li><li>NLP：(Natural Language Processing, NLP)自然语言处理是研究如何利用计算机技术对语 言文本(句子、篇章或话语等)进行处理和加工的 一门学科,研究内容包括对词法、句法、语义和语 用等信息的识别、分类、提取、转换和生成等各种 处理方法和实现技术。</li></ul><h2>研究内容：</h2><p>按照应用目标划分,广义上包括:</p><ul><li>机器翻译 (Machine translation, MT):</li><li>信息检索 (Information retrieval)信息检索也称情报检索,就是利用计算机系统从大量文档中找到符合用户需要的相关信息</li><li>自动文摘 (Automatic summarization / Automatic abstracting)&nbsp;观点挖掘 (Opinion mining)</li><li>问答系统 (Question-answering system)、社区问答(Community Question Answering, CQA)</li><li>信息过滤(Information filtering) 通过计算机系统自动识别和过滤那些满足特定条件的文档信息。</li><li>信息抽取(Information extraction) 从指定文档中或者海量文本中抽取出用户感兴趣的信息。实体关系抽取 (entity relation extraction)。 社会网络 (social network)</li><li>文档分类(Document categorization)情感分类(Sentimental classification)应用:图书管理、情报获取、网络内容监控等</li><li>文字编辑和自动校对(Automatic proofreading)应用:排版、印刷和书籍编撰等。</li><li>语音识别 (automatic speech recognition, ASR)</li></ul><h2>基本问题：</h2><ul><li>形态学问题（Morphology）研究词(word) 由有意义的基本单位-词素(morphemes)的构成问题。词素:词根、前缀、后缀、词尾 老虎＝ 老+虎 &nbsp;</li><li>语法学问题（syntax）研究句子结构成分之间的相互关系和组成句子 序列的规则。我吃了苹果 &nbsp;!= &nbsp;苹果吃了我</li><li>语义学问题 (Semantics) 研究如何从一个词语中词的意义以及词在语句中句法结构中作用来推导语句的意义。这句话说明了什么？ 比如：这个人真牛</li><li>语用学问题(Pragmatics) 研究在不同上下文中语句的作用。以及上下文对语句理解所产生的影响。 为什么要说这句话？ &nbsp; 看看鱼怎么样了？</li><li>语音学问题(Phonetics) 研究语音特性、语音描述、分类以及转写方法</li></ul><h2>主要困难：</h2><h3>大量歧义：</h3><ul><li>词法歧义：教育<span style="text-decoration: underline;" data-mce-style="text-decoration: underline;">部长</span>跑活动负责人</li><li>词性歧义：Time <span style="text-decoration: underline;" data-mce-style="text-decoration: underline;">flies</span> <span style="text-decoration: underline;" data-mce-style="text-decoration: underline;">like</span> an arrow. (光阴似箭)&nbsp;<span style="line-height: 1.42857;" data-mce-style="line-height: 1.42857;">(有一种苍蝇叫“时间”)</span></li><li><span style="line-height: 22.8571px;" data-mce-style="line-height: 22.8571px;"><span style="line-height: 22.8571px;" data-mce-style="line-height: 22.8571px;">结构歧义：</span></span>关于鲁迅的文章。 英语句子歧义组合的<a href="https://zh.wikipedia.org/wiki/卡塔兰数" data-mce-href="https://zh.wikipedia.org/wiki/卡塔兰数">卡特兰数</a>Catalan Numbers) Cn<img src="NLP1概述_files/577db8142370500c9a000009.png" alt="" data-mce-src="NLP1概述_files/577db8142370500c9a000009.png">n 为句子中介词短语的个数。</li><li>语义歧义：意思意思</li><li>语音歧义：文言文中同音现象</li><li>多音字及韵律等歧义：小心地滑</li></ul><h3>大量未知语言现象：</h3><ul><li>地名、人名、新词：夏天、失联</li><li>新含义：老虎、小姐</li><li>新用法和新句型：尤其在口语或网络中：被长工资、很中国</li></ul><h3>总结下面临的挑战：</h3><ul><li>普遍存在的不确定性:词法、句法、语义、语用和语音各个层面</li><li>未知语言现象的不可预测性:新的词汇、新的术 语、新的语义和语法无处不在</li><li>始终面临的数据不充分性:有限的语言集合永远 无法涵盖开放的语言现象</li><li>语言知识表达的复杂性:语义知识的模糊性和错 综复杂的关联性难以用常规方法有效地描述,为 语义计算带来了极大的困难</li><li>机器翻译中映射单元的不对等性:词法表达不相同、 句法结构不一致、语义概念不对等</li></ul><h2>研究方法概要：</h2><h3>理性主义：</h3><ul><li>基于规则的分析方法建立符号处理系统&nbsp;<br></li><li>知识库＋推理系统 ＝ NLP系统</li><li>理论基础：<a href="https://zh.wikipedia.org/wiki/乔姆斯基谱系" data-mce-href="https://zh.wikipedia.org/wiki/乔姆斯基谱系">Chomsky</a>文法理论（形式语言、词法理论、语法理论、推理方法）</li></ul><h3>经验主义：</h3><ul><li>基于大规模真实语料（语言数据）建立计算方法</li><li>语料库＋统计模型＝NLP系统</li><li>理论基础：统计学、<a href="https://zh.wikipedia.org/wiki/信息论" data-mce-href="https://zh.wikipedia.org/wiki/信息论">信息论</a>、机器学习、数学模型、搜索模型</li></ul><p>可以：理性主义和经验主义的合谋－符号智能 ＋计算智能，建立融合方法</p><h3>举例分析：</h3><p>There is a book on the desk 翻译成汉语</p><p><strong>基于规则的方法：</strong></p><ul><li>对英语句子进行词法分析There/Ad is/Vbe a/Det book/N on/P the/Det desk/N ./Pu</li><li>对英语句子进行句法结构分析<img src="NLP1概述_files/577dbd032370500c9a00000a.png" alt="" data-mce-src="NLP1概述_files/577dbd032370500c9a00000a.png"></li><li>利用转换规则将英语句子结构转换为汉语结构： &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</li><li><img src="NLP1概述_files/577dbddd2370500c9a00000c.png" alt="" data-mce-src="NLP1概述_files/577dbddd2370500c9a00000c.png"><img src="NLP1概述_files/577dbde82370500c9a00000d.png" alt="" data-mce-src="NLP1概述_files/577dbde82370500c9a00000d.png"></li><li>利用转换后的句子结构，利用字典和生成规则生成翻译的结构句子</li><li><img src="NLP1概述_files/577dbe032370500c9a00000e.png" alt="" data-mce-src="NLP1概述_files/577dbe032370500c9a00000e.png"><img src="NLP1概述_files/577dbe142370500c9a00000f.png" alt="" data-mce-src="NLP1概述_files/577dbe142370500c9a00000f.png"></li><li>输出译文：在桌子上有一本书</li></ul><p><strong>基于统计的方法：</strong><br></p><ul><li>给定源语言句子：<img src="NLP1概述_files/577dbe852370500c9a000011.png" alt="" data-mce-src="NLP1概述_files/577dbe852370500c9a000011.png"></li><li>将其翻译成目标语言句子：<img src="NLP1概述_files/577dbe962370500c9a000012.png" alt="" data-mce-src="NLP1概述_files/577dbe962370500c9a000012.png"></li><li>根据贝叶斯公式：<img src="NLP1概述_files/577dbeb72370500c9a000013.png" alt="" data-mce-src="NLP1概述_files/577dbeb72370500c9a000013.png"><img id="__LEANOTE_D_IMG_1467858629594" src="NLP1概述_files/577dbec52370500c9a000015.png" alt="" width="329" height="89" data-mce-src="NLP1概述_files/577dbec52370500c9a000015.png"></li><li>构建解码器（decoder）快速搜索最优翻译候选：<img src="NLP1概述_files/577dbf092370500c9a000016.png" alt="" width="371" height="57" data-mce-src="NLP1概述_files/577dbf092370500c9a000016.png"></li><li>三个关键问题：<img src="NLP1概述_files/577dbf2d2370500c9a000017.png" alt="" width="316" height="55" data-mce-src="NLP1概述_files/577dbf2d2370500c9a000017.png"></li><li>主要任务：<img src="NLP1概述_files/577dbf3d2370500c9a000018.png" alt="" width="251" height="36" data-mce-src="NLP1概述_files/577dbf3d2370500c9a000018.png"></li></ul><h2>参考文献</h2><h3>期刊：</h3><ul><li>Computational Linguistics</li><li>Natural Language Engineering</li><li>ACM Trans. on ALIP</li><li>Machine Translation</li><li>IEEE Trans. on Audio, Speech, and Language Processing</li><li>中文信息学报/计算机学报/软件学报/计算机研究 与发展</li></ul><h3>会议论文集：</h3><ul><li><p>Proceedings of ACL (Annual Meeting of the Association forComputational Linguistics )</p></li><li><p>Proceedings of NAACL, EMNLP</p></li><li><p>Proceedings of COLING (International Conference on Computational Linguistics)</p></li><li><p>Proceedings of IJCNLP (International Joint Conference on Natural Language Processing)</p></li><li><p>国内相关会议论文集</p></li></ul><h3>课程：</h3><ul><li><a href="http://www.cs.columbia.edu/~cs4705/" data-mce-href="http://www.cs.columbia.edu/~cs4705/">http://www.cs.columbia.edu/~cs4705/</a></li><li><a href="http://demo.clab.cs.cmu.edu/NLP/" data-mce-href="http://demo.clab.cs.cmu.edu/NLP/">http://demo.clab.cs.cmu.edu/NLP/</a></li><li class="page" title="Page 99"><div class="section"><div class="layoutArea"><div class="column"><div class="page" title="Page 99"><a href="http://web.mit.edu/6.863/www/fall2012/" data-mce-href="http://web.mit.edu/6.863/www/fall2012/">http://web.mit.edu/6.863/www/fall2012/</a></div></div></div></div></li><li><a href="http://online.stanford.edu/course/natural-language-processing" data-mce-href="http://online.stanford.edu/course/natural-language-processing">http://online.stanford.edu/course/natural-language-processing</a></li></ul></div></div></div>
+	</div>
+
+<!-- 该js供其它处理 -->
+<script src="../leanote-html.js"></script>
+</body>
+</html>

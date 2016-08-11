@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="tool" content="leanote-desktop-app">
+<title>NLP3 形式语言与自动机及其在NLP中的应用</title>
+<style>
+
+*{font-family:"lucida grande","lucida sans unicode",lucida,helvetica,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;}
+
+body {
+  margin: 0;
+}
+
+/*公用文字样式*/
+h1{font-size:30px}h2{font-size:24px}h3{font-size:18px}h4{font-size:14px}
+.note-container{
+    width:850px; 
+    margin:auto;
+    padding: 10px 20px;
+    box-shadow: 1px 1px 10px #eee;
+}
+#title {
+  margin: 0;
+}
+table {
+    margin-bottom: 16px;
+    border-collapse: collapse;
+}
+table th, table td {
+    padding: 6px 13px;
+    border: 1px solid #ddd;
+}
+table th {
+    font-weight: bold;
+}
+
+table tr {
+    background-color: none;
+    border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+    background-color: rgb(247, 247, 249);
+}
+.mce-item-table, .mce-item-table td, .mce-item-table th, .mce-item-table caption {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  padding: 6px 13px;
+}
+blockquote {
+  border-left-width:10px;
+  background-color:rgba(128,128,128,0.05);
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+  padding:15px 20px;
+  border-left:5px solid rgba(128,128,128,0.075);
+}
+blockquote p {
+  margin-bottom:1.1em;
+  font-size:1em;
+  line-height:1.45
+}
+blockquote ul:last-child,blockquote ol:last-child {
+  margin-bottom:0
+}
+pre {
+  padding: 18px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 3px;
+  display: block;
+}
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  white-space: nowrap;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+.footnote {
+  vertical-align: top;
+  position: relative;
+  top: -0.5em;
+  font-size: .8em;
+}
+
+hr {
+  margin:2em 0
+}
+img {
+  max-width:100%
+}
+pre {
+  word-break:break-word
+}
+p,pre,pre.prettyprint,blockquote {
+  margin:0 0 1.1em
+}
+hr {
+  margin:2em 0
+}
+img {
+  max-width:100%
+}
+.sequence-diagram,.flow-chart {
+  text-align:center;
+  margin-bottom:1.1em
+}
+.sequence-diagram text,.flow-chart text {
+  font-size:15px !important;
+  font-family:"Source Sans Pro",sans-serif !important
+}
+.sequence-diagram [fill="#ffffff"],.flow-chart [fill="#ffffff"] {
+  fill:#f6f6f6
+}
+.sequence-diagram [stroke="#000000"],.flow-chart [stroke="#000000"] {
+  stroke:#3f3f3f
+}
+.sequence-diagram text[stroke="#000000"],.flow-chart text[stroke="#000000"] {
+  stroke:none
+}
+.sequence-diagram [fill="#000"],.flow-chart [fill="#000"],.sequence-diagram [fill="#000000"],.flow-chart [fill="#000000"],.sequence-diagram [fill="black"],.flow-chart [fill="black"] {
+  fill:#3f3f3f
+}
+ul,ol {
+  margin-bottom:1.1em
+}
+ul ul,ol ul,ul ol,ol ol {
+  margin-bottom:1.1em
+}
+kbd {
+  padding:.1em .6em;
+  border:1px solid rgba(63,63,63,0.25);
+  -webkit-box-shadow:0 1px 0 rgba(63,63,63,0.25);
+  box-shadow:0 1px 0 rgba(63,63,63,0.25);
+  font-size:.7em;
+  font-family:sans-serif;
+  background-color:#fff;
+  color:#333;
+  border-radius:3px;
+  display:inline-block;
+  margin:0 .1em;
+  white-space:nowrap
+}
+.toc ul {
+  list-style-type:none;
+  margin-bottom:15px
+}
+</style>
+<!-- 该css供自定义样式 -->
+<link href="../leanote-html.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="note-container">
+		<h1 class="title" id="leanote-title">NLP3 形式语言与自动机及其在NLP中的应用</h1>
+		<div class="content-html" id="leanote-content"><h1>第三章形式语言与自动机及其在NLP中的应用</h1><h2 class="page" title="Page 1">基本概念：<br></h2><ul><li>语言：按照一定规律构成的句子和符号串的有限或无限的集合。 - N. Chomsky<div class="page" title="Page 3">&nbsp;<br></div></li><li>语言描述三种途径：<ul><li>穷举法 — 只适合句子数目有限的语言。</li><li>语法描述 — 生成语言中合格的句子。</li><li>自动机 — 对输入的句子进行检验,区别哪些是 语言中的句子,哪些不是语言中的句子。</li></ul></li><li>形式语言的直观意义：形式语言是用来精确地描述语言(包括人工语言和 自然语言)及其结构的手段。形式语言学 也称 代数语 言学。 以重写规则<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e139846d42768fc00005b.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e139846d42768fc00005b.png"> 的形式表示,其中<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e13a646d42768fc00005c.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e13a646d42768fc00005c.png">均为字符串。顾名思义：<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e13c846d42768fc00005d.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e13c846d42768fc00005d.png">可以被改写成 <img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e13d046d42768fc00005e.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e13d046d42768fc00005e.png">。一个初步的 字符串通过不断地运用重写规则,就可以得到另一个字符 串。通过选择不同的规则并以不同的顺序来运用这些规则, 就可以得到不同的新字符串。</li><li><a href="https://zh.wikipedia.org/wiki/形式文法" data-mce-href="https://zh.wikipedia.org/wiki/形式文法">形式语法</a>的定义：<ul><li><a href="http://baike.baidu.com/view/8710463.htm" data-mce-href="http://baike.baidu.com/view/8710463.htm">最左推导</a>、最右推导（规范推导）<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f4973eae6b21a3000000.png" alt="" width="358" height="98" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f4973eae6b21a3000000.png"></li><li><a href="https://zh.wikipedia.org/wiki/正则文法" data-mce-href="https://zh.wikipedia.org/wiki/正则文法">正则文法</a>：又称3型文法（左线性正则文法：A -&gt;Bx）否则A-&gt;xB 为右线性正则文法<ul><li><img id="__LEANOTE_D_IMG_1468201159467" src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f8c73eae6b21a3000003.png" alt="" width="314" height="163" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f8c73eae6b21a3000003.png"></li></ul></li><li><a href="https://zh.wikipedia.org/wiki/上下文无关文法" data-mce-href="https://zh.wikipedia.org/wiki/上下文无关文法">上下文无关文法</a> (context-free grammar, CFG)：又称为2型文法 : A - &gt; a<ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f8923eae6b21a3000001.png" alt="" width="345" height="170" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f8923eae6b21a3000001.png"></li></ul></li><li><a href="https://zh.wikipedia.org/wiki/上下文有关文法" data-mce-href="https://zh.wikipedia.org/wiki/上下文有关文法">上下文有关文法</a>(context-sensitive grammar, CSG)：又称为1型文法<ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f8e93eae6b21a3000004.png" alt="" width="322" height="148" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f8e93eae6b21a3000004.png"></li></ul></li><li>无约束文法(无限制重写系统)：如果 P 中的规则满足如下形式: <img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e166046d42768fc000062.png" alt="" width="118" height="20" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e166046d42768fc000062.png">是字符串,则称 G 为无约束文法,或称 0 型文法。</li><li>显然,每一个正则文法都是上下文无关文法,每一个上下无关文法都是上下文有关文法,而每一个上下文有关文法都是0型文法,即:<ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e168646d42768fc000063.png" alt="" width="277" height="23" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e168646d42768fc000063.png"></li></ul></li><li>语言与文法类型的约定：如果一种语言能由几种文法所产生,则把这种语言称为在这几种文法中受限制最多的那种文法所产生的语言。</li></ul></li><li>CFG 产生的语言句子的派生树表示：<ul><li>对于<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e17a246d42768fc000064.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e17a246d42768fc000064.png">给一个标记作为节点, S 作为树的根节点。</li><li>如果一个节点的标记为 A,并且它至少有一个除它自身以外的后裔,则&nbsp;<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e17c546d42768fc000065.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e17c546d42768fc000065.png"></li><li>如果一个节点的标记为 A,它的 k ( k &gt; 0) 个直接后裔节 点按从左到右的次序依次标记为 A1, A2, ..., Ak,则 A A1A2...Ak 一定是 P 中的一个产生式。</li><li><span style="line-height: 1.42857;" data-mce-style="line-height: 1.42857;">例如：</span><img style="line-height: 1.42857;" src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e17fa46d42768fc000066.png" alt="" width="226" height="46" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e17fa46d42768fc000066.png" data-mce-style="line-height: 1.42857;"><span style="line-height: 1.42857;" data-mce-style="line-height: 1.42857;">&nbsp;</span><ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e180b46d42768fc000067.png" alt="" width="294" height="113" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e180b46d42768fc000067.png"></li></ul></li></ul></li><li>上下文无关文法的二义性：一个文法 G,如果存在某个句子有不只一棵分析树与之对应,那么称这个文法是二义的。<ul><li>例如：<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e189a46d42768fc000068.png" alt="" width="262" height="76" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e189a46d42768fc000068.png"></li><li>则“关于鲁迅的文章“的推导：<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e18c246d42768fc000069.png" alt="" width="279" height="158" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e18c246d42768fc000069.png"></li></ul></li><li>有限 自动机 (finite automata, FA)：由于 DFA 与 NFA 所接受的是同样的链集, 所以一般情况下无需区分它们,二者统称为有限 自动机 (finite automata, FA)</li></ul><ul><li><a href="https://zh.wikipedia.org/wiki/确定有限状态自动机" data-mce-href="https://zh.wikipedia.org/wiki/确定有限状态自动机">确定的有限自动机</a>(definite automata, DFA)<ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f9ce3eae6b21a3000005.png" alt="" width="294" height="137" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f9ce3eae6b21a3000005.png"></li><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f9db3eae6b21a3000006.png" alt="" width="224" height="62" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f9db3eae6b21a3000006.png"></li><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f9f63eae6b21a3000007.png" alt="" width="201" height="40" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/5782f9f63eae6b21a3000007.png"></li></ul></li><li><a href="https://zh.wikipedia.org/wiki/非确定有限状态自动机" data-mce-href="https://zh.wikipedia.org/wiki/非确定有限状态自动机">不确定的有限自动机</a> (non-definite automata, NFA)<ul><li>NFA 与 DFA 的区别： NFA 与 DFA 的唯一区别是:在 NFA 中 <img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e19f246d42768fc00006a.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e19f246d42768fc00006a.png">是 一个状态集合,而在 DFA 中 <img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e19f746d42768fc00006b.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e19f746d42768fc00006b.png">是一个状态。</li><li>NFA 与 DFA 的关系：设 L 是一个被 NFA 所接受的句子的集 合,则存在一个 DFA,它能够接受 L</li></ul></li><li><a href="https://zh.wikipedia.org/wiki/下推自动机" data-mce-href="https://zh.wikipedia.org/wiki/下推自动机">下推自动机</a> (push-down automata, PDA)</li></ul><h2>文法与自动机的关系</h2><h3>正则文法与有限自动机的关系</h3><ul><li>若<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1b0f46d42768fc00006d.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1b0f46d42768fc00006d.png">是一个正则文法, 则存在一个有限自动机 <img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1b1c46d42768fc00006e.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1b1c46d42768fc00006e.png">,使得: T(M) = L(G)。<ul><li>由G构造M的一般步骤：<ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1bbb46d42768fc000071.png" alt="" width="323" height="197" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1bbb46d42768fc000071.png"></li></ul></li><li>例题：给定正则文法 G =(V n, Vt , P, S ),其中, VN={S, B}, VT={a, b}, P={S -&gt;aB, B-&gt; bS|aB|a} 构造与 G 等价的 NFA。<ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1c0d46d42768fc000072.png" alt="" width="365" height="196" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1c0d46d42768fc000072.png"></li><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1c1a46d42768fc000073.png" alt="" width="283" height="105" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1c1a46d42768fc000073.png"></li></ul></li></ul></li><li>若<img id="__LEANOTE_D_IMG_1467882622170" src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1c7e46d42768fc000077.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1c7e46d42768fc000077.png">是一个有限自动机, 则存在正则文法 <img id="__LEANOTE_D_IMG_1467882614738" src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1c7646d42768fc000076.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1c7646d42768fc000076.png">,使得: L(G) =T(M)。<ul><li>由M构造G的一般步骤：<ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1db946d42768fc000079.png" alt="" width="336" height="111" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1db946d42768fc000079.png"></li></ul></li></ul></li></ul><h3>下推自动机与CFG</h3><ul><li>映射关系<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1df846d42768fc00007a.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1df846d42768fc00007a.png">的解释：<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1edc46d42768fc00007b.png" alt="" width="312" height="31" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1edc46d42768fc00007b.png">，其中<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1f0246d42768fc00007d.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1f0246d42768fc00007d.png"><ul><li>该映射的意思是:当PDA处于状态 q,面临输入符号 a时,自动机将进入qi, i = 1, 2, ..., m状态,并以 i 来 代替下推存储器(栈)顶端符号Z,同时将输入头指向下 一个字符 。</li><li>当 Z 被 i 取代时, i 的符号按照从左到右 的顺序依次从下向上推入到存储器。 &nbsp; &nbsp;&nbsp;</li><li>特殊情况下,当<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1f3b46d42768fc00007e.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1f3b46d42768fc00007e.png">时,输入头位置不移动,只用于处理下推存储器内部 的操作,叫作 “ <img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1f5746d42768fc00007f.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1f5746d42768fc00007f.png">移动”</li><li>例题：<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1f8c46d42768fc000080.png" alt="" width="343" height="160" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1f8c46d42768fc000080.png"><ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1fa646d42768fc000081.png" alt="" width="342" height="196" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e1fa646d42768fc000081.png"></li></ul></li></ul></li><li>图灵机和线性带限自动机<ul><li>图灵机与有限自动机的区别:图灵机可以通 过其读/写头改变输入带的字符。</li><li>线性带限自动机是一个确定的单带图灵机, 其读写头不能超越原输入带上字符串的初始 和终止位置,即线性带限自动机的存储空间 被输入符号串的长度所限制。</li></ul></li><li>各类自动机的区别<ul><li>各类自动机的主要区别是它们能够使用的 信息存储空间的差异:</li><li>有限状态自动机只能用 状态来存储信息;</li><li>下推自动机除了可以用状态 以外,还可以用下推存储器(栈);</li><li>线性带限自 动机可以利用状态和输入/输出带本身。因为 输入/输出带没有“先进后出”的限制,因此, 其功能大于栈;</li><li>而图灵机的存储空间没有任何 限制。</li></ul></li><li>语言与识别器的对应关系：识别器是有穷地表示无穷语言的另一种方 法。每一个语言的句子都能被一定的识别器 所接受。<ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e204946d42768fc000082.png" alt="" width="216" height="101" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e204946d42768fc000082.png"></li></ul></li></ul><h2>应用举例：</h2><p>有限自动机在 NLP中的应用</p><h3>英语单词拼写检查[Oflazer, 1996]</h3><ul><li>设 X 为拼写错误的字符串,其长度为m, Y 为 X 对应的正确的单词(答案),其长度为 n。则 X 和 Y 的<a href="http://baike.baidu.com/view/2020247.htm" data-mce-href="http://baike.baidu.com/view/2020247.htm">编辑距离</a> ed(X[m], Y[n]) 定义为:从字符串 X 转换到 Y 需要的插入、删除、替换和交换两个相 邻的基本单位(字符)的最小个数。如:<ul><li>ed (recoginze, recognize) = 1 &nbsp; &nbsp;&nbsp;ed (sailn, failing) = 3</li></ul></li><li>假设Z = z1 z2 ... zp 为字母表A上的p个字母构成 的字符串,Z[j] 表示含有j (j 1) 个字符的子串。X[m] 为拼写错误的字符串,其长度为m,Y[n] 为与X串接 近的字符串(一个候选),其长度为n。则给定两个串X 和Y的编辑距离ed(X[m], Y[n]) 可以通过循环计算出从 字符串X 转换到Y 需要进行插入、删除、替换和交换 两个相邻的字符操作的最少次数<ul><li>如果 xi+1= yj+1(两个串的最后一个字母相同), 则 ed(X[i+1], Y[j+1]) = ed(X[i], Y[j]);</li><li>如果 xi = yj+1,并且 xi+1 = yj(最后两个字符需要 交换位置),则 ed(X[i+1], Y[j+1]) = 1+min{ed(X[i-1], Y[j-1]), ed(X[i], Y[j+1]), ed(X[i+1], Y[j])}<div class="page" title="Page 64">&nbsp;<br></div><ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e7bb3edc9ed06df000000.png" alt="" width="321" height="207" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e7bb3edc9ed06df000000.png"></li></ul></li><li>其它情况下(xi+1 != yj+1且 (xi!=&nbsp; yj+1或 xi+1!=&nbsp; yj)) ed(X[i+1],Y[j+1])= 1+min{ed(X[i],Y[j]), ed(X[i],Y[j+1]), ed(X[i+1],Y[j])}<ul><li>其中, ed(X[0],Y[j]) j (0 &lt;=j&lt;= n) (X长度为0)</li><li>ed(X[i],Y[0]) i (0&lt;= i&lt;= m) (Y长度为0)</li><li>ed(X[ -1],Y[ j]) =ed(X[i],Y[ -1]) =max{m,n} &nbsp;(边界约定)</li><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e7cb2edc9ed06df000001.png" alt="" width="298" height="196" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e7cb2edc9ed06df000001.png"></li></ul></li></ul></li><li>如果 L<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e7fb8edc9ed06df000002.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e7fb8edc9ed06df000002.png"> A* 表示有限状态机 <img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e8038edc9ed06df000004.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e8038edc9ed06df000004.png">（其中Q 表示状态集;A 表示输入字符集；q0为起始状态，F为终止状态集）接受的语言,字母 构成的所有合法单词都是有限状态机中的一条路径。 给定一个输入串,对其进行检查的过程就是在给定阈 值 t (t &gt; 0) 的情况下,寻找那些与输入串的编辑距离 小于 t 的路径。那么,一个字符串 X [m] L 能够被 R 识别的条件是存在非空集合: C {Y[n]|Y[n] <img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e7fd2edc9ed06df000003.png" alt="" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e7fd2edc9ed06df000003.png">L and &nbsp;ed(X[m],Y[n]) &lt;= t}<ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e8093edc9ed06df000005.png" alt="" width="318" height="174" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e8093edc9ed06df000005.png"></li><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e80acedc9ed06df000006.png" alt="" width="344" height="183" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e80acedc9ed06df000006.png"></li><li>例子：<ul><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e80d1edc9ed06df000007.png" alt="" width="370" height="203" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e80d1edc9ed06df000007.png"></li><li>采用深度优先搜索算法从自动机中选择路径。假设 X=bax, t=2。那么,Y=a/b/c/.../z,l=max{1, 1-2}=1, u=min{3, 1+2}=3。即从 X 中取长度在1~3个字符范围内 的子串X’={b, ba, bax},分别计算与 Y 之间的编辑距离, 保留那些 ed(X’, Y)≤ t 的路径,选择 ed 最小的路径继续 扩展。 <img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e80f2edc9ed06df000008.png" alt="" width="77" height="68" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e80f2edc9ed06df000008.png"></li><li>X=bax, t=2。 Y={ba, bi, bo, ... ...}。 截取 X: l=max{1, 2-2}=1, u=min{3, 2+2}=3。 X’={b, ba, bax} 保留那些 ed(X’, Y)≤ t 的路径,选择 ed 最小的路径继 续扩展。<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e810cedc9ed06df000009.png" alt="" width="122" height="77" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e810cedc9ed06df000009.png"></li><li>X=bax, t=2。Y={baa, bad, bag, bat, bay}。 截取 X: l=max{1, 3-2}=1, u=min{3, 3+2}=3。 X’={b, ba, bax} 保留那些 ed(X’, Y)≤ t 的路径,选择 ed 最小的路径, 继续扩展Y。<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e8151edc9ed06df00000a.png" alt="" width="194" height="110" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e8151edc9ed06df00000a.png"></li><li>X=bax, t=2。Y={bade}。 截取 X: l=max{1, 4-2}=2, u=min{3, 4+2}=3。 X’={ba, bax} 保留那些 ed(X’, Y)≤ t 的路径,选择 ed 最小的路径<img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e8173edc9ed06df00000b.png" alt="" width="342" height="116" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e8173edc9ed06df00000b.png"></li><li>算法：</li><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e818dedc9ed06df00000c.png" alt="" width="369" height="188" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e818dedc9ed06df00000c.png"></li></ul></li></ul></li></ul><h3>有限自动机用于英语单词形态分析 [Allen, 1995]</h3><p>英语单词形态变化非常普遍,例如: eat: eats, eating, ate, eaten happy: happier, happiest seed ?</p><ul><li>在实际应用中,除了有限状态机以外, 还常常使用有限状态转换机(finite state transducer, FST)的概念。粗略地讲,有限状 态转换机与有限自动机(或有限状态机)的区别 在于:FST 在完成状态转移的同时产生一个输 出,而 FA (或 FSM) 只实现状态转移,不产生 任何输出。</li><li><img src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e822eedc9ed06df00000d.png" alt="" width="312" height="111" data-mce-src="NLP3-形式语言与自动机及其在NLP中的应用_files/577e822eedc9ed06df00000d.png"></li><li>识别单词:happy, happier, happiest 可转换的形式: happier happy + er happiest happy + est</li><li>一般地,具有相同的前缀或词根,词缀不 同的单词可以共用一个有限状态转移机,共享 其中的某些状态节点。如:tie, ties, trap, traps, try, tries, to, torch, torches, toss, tosses 等</li><li>除了单词拼写检查、形态分析以外,有限 状态自动机还广泛应用于词性标注、句法分析、 短语识别、机器翻译和语音识别等很多方面</li></ul><p>&nbsp;<br></p><p>&nbsp;<br></p></div>
+	</div>
+
+<!-- 该js供其它处理 -->
+<script src="../leanote-html.js"></script>
+</body>
+</html>
